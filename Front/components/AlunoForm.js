@@ -50,7 +50,6 @@ export default function AlunoForm({ navigation, route }) {
     }
   }, [id]);
 
-  // Busca endereço no ViaCEP ao digitar o CEP completo
   const buscarCep = async (cep) => {
     if (!cep || cep.length !== 8) return;
     try {
@@ -67,7 +66,7 @@ export default function AlunoForm({ navigation, route }) {
           ...prev,
           endereco: {
             ...prev.endereco,
-            cep, // Garante manter o CEP correto
+            cep,
             logradouro: data.logradouro ?? '',
             bairro: data.bairro ?? '',
             cidade: data.localidade ?? '',
@@ -114,7 +113,7 @@ export default function AlunoForm({ navigation, route }) {
       } else {
         await addAluno(aluno);
       }
-      navigation.goBack();
+      navigation.navigate('Alunos'); // Troca o goBack por navegação segura para lista principal
     } catch (e) {
       Alert.alert('Erro ao salvar aluno', e.message || 'Erro desconhecido');
       console.log('Erro salvar aluno:', e);
@@ -133,6 +132,7 @@ export default function AlunoForm({ navigation, route }) {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
+        {/* ... os campos do formulário ... */}
         <Text style={commonStyles.label}>Matrícula:</Text>
         <TextInput
           value={form.matricula}
@@ -141,7 +141,6 @@ export default function AlunoForm({ navigation, route }) {
           placeholder="Matrícula"
           placeholderTextColor="#888"
         />
-
         <Text style={commonStyles.label}>Nome:</Text>
         <TextInput
           value={form.nome}
@@ -150,7 +149,6 @@ export default function AlunoForm({ navigation, route }) {
           placeholder="Nome"
           placeholderTextColor="#888"
         />
-
         <Text style={commonStyles.label}>CEP:</Text>
         <TextInput
           value={form.endereco.cep}
@@ -165,7 +163,6 @@ export default function AlunoForm({ navigation, route }) {
           keyboardType="numeric"
           maxLength={8}
         />
-
         <Text style={commonStyles.label}>Logradouro:</Text>
         <TextInput
           value={form.endereco.logradouro}
@@ -198,7 +195,6 @@ export default function AlunoForm({ navigation, route }) {
           placeholderTextColor="#888"
           editable={false}
         />
-
         <Text style={commonStyles.label}>Número:</Text>
         <TextInput
           value={form.endereco.numero}
@@ -215,7 +211,6 @@ export default function AlunoForm({ navigation, route }) {
           placeholder="Complemento"
           placeholderTextColor="#888"
         />
-
         <Text style={commonStyles.label}>Cursos (separados por vírgula):</Text>
         <TextInput
           value={form.cursos}
@@ -224,7 +219,6 @@ export default function AlunoForm({ navigation, route }) {
           placeholder="Cursos"
           placeholderTextColor="#888"
         />
-
         <TouchableOpacity style={commonStyles.button} onPress={salvar}>
           <Text style={commonStyles.buttonText}>SALVAR</Text>
         </TouchableOpacity>

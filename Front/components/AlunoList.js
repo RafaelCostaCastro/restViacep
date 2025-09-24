@@ -20,7 +20,6 @@ export default function AlunoList({ navigation }) {
       <TouchableOpacity style={commonStyles.button} onPress={() => navigation.navigate('Form')}>
         <Text style={commonStyles.buttonText}>ADICIONAR ALUNO</Text>
       </TouchableOpacity>
-
       <FlatList
         data={alunos}
         keyExtractor={item => item._id}
